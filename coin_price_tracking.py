@@ -67,11 +67,11 @@ def main(link):
             
             if price_text>first_price:
                 first_price=price_text
-                print("-- Currency value increased --")
+                print(f"Increase [{coin_name}] => {price_text} ")
 
                 if option=="y":
                     wp_driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p").click()
-                    pyautogui.typewrite("-- Currency value increased --")
+                    pyautogui.typewrite(f"Increase [{coin_name}] => {price_text} ")
                     pyautogui.press("Enter")
                     
             sleep(5)
