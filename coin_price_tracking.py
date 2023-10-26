@@ -9,7 +9,7 @@ import pyautogui
 
 def menu():
 
-    print("Which currency chart to follow ?\n1-) BİTCOİN / U.S. DOLLAR\n2-) ETHEREUM / TETHERUS\n3-) BİTCOİN / TETHERUS\n4-) EURO FX/ U.S. DOLLAR")
+    print("Which currency chart to follow ?\n1-) BİTCOİN / U.S. DOLLAR\n2-) ETHEREUM / TETHERUS\n3-) BİTCOİN / TETHERUS\n4-) EURO FX / U.S. DOLLAR\n5-) NASDAQ")
     choice=input()
     
     coin_link={
@@ -17,7 +17,8 @@ def menu():
         "1":"https://tr.tradingview.com/chart/?symbol=BITSTAMP%3ABTCUSD",
         "2":"https://tr.tradingview.com/chart/?symbol=BINANCE%3AETHUSDT",
         "3":"https://tr.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT",
-        "4":"https://tr.tradingview.com/chart/?symbol=FX%3AEURUSD"
+        "4":"https://tr.tradingview.com/chart/?symbol=FX%3AEURUSD",
+        "5":"https://tr.tradingview.com/chart/?symbol=SKILLING%3ANASDAQ"
     }
 
     return coin_link[choice]
@@ -47,15 +48,21 @@ def main(link):
     driver = webdriver.Chrome(ChromeDriverManager().install(),options=driverOptions)
     driver.get(link)
 
-    WebDriverWait(driver,10).until(ec.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[6]/div/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[1]")))
+    WebDriverWait(driver,10).until(ec.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[6]/div/div[2]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[1]")))
 
-    coin_name=driver.find_element(By.XPATH,"/html/body/div[2]/div[6]/div/div[1]/div[1]/div[1]/div[2]/div[1]/div/span[2]").text
-    currency=driver.find_element(By.XPATH,"/html/body/div[2]/div[6]/div/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[2]/span[2]").text
-    first_price=driver.find_element(By.XPATH,"/html/body/div[2]/div[6]/div/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[1]").text
+    coin_name=driver.find_element(By.XPATH,"/html/body/div[2]/div[6]/div/div[2]/div[1]/div[1]/div[2]/div[1]/div/span[2]").text
+
+    currency=driver.find_element(By.XPATH,"/html/body/div[2]/div[6]/div/div[2]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[2]/span[2]").text
+    
+    price_path="/html/body/div[2]/div[6]/div/div[2]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[1]"
+    
+    first_price=driver.find_element(By.XPATH,price_path).text
+    
+
 
     while True:
         try:
-            price_text=driver.find_element(By.XPATH,"/html/body/div[2]/div[6]/div/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/span[1]/span[1]").text
+            price_text=driver.find_element(By.XPATH,price_path).text
             print(coin_name+" =>",price_text,currency)
             
             if price_text>first_price:
@@ -66,7 +73,7 @@ def main(link):
                     wp_driver.find_element(By.XPATH,"/html/body/div[1]/div/div/div[5]/div/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]/p").click()
                     pyautogui.typewrite("-- Currency value increased --")
                     pyautogui.press("Enter")
-
+                    
             sleep(5)
 
         except Exception:
