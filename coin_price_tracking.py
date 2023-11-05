@@ -9,19 +9,9 @@ import pyautogui
 
 def menu():
 
-    print("Which currency chart to follow ?\n1-) BİTCOİN / U.S. DOLLAR\n2-) ETHEREUM / TETHERUS\n3-) BİTCOİN / TETHERUS\n4-) EURO FX / U.S. DOLLAR\n5-) NASDAQ")
-    choice=input()
-    
-    coin_link={
-
-        "1":"https://tr.tradingview.com/chart/?symbol=BITSTAMP%3ABTCUSD",
-        "2":"https://tr.tradingview.com/chart/?symbol=BINANCE%3AETHUSDT",
-        "3":"https://tr.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT",
-        "4":"https://tr.tradingview.com/chart/?symbol=FX%3AEURUSD",
-        "5":"https://tr.tradingview.com/chart/?symbol=SKILLING%3ANASDAQ"
-    }
-
-    return coin_link[choice]
+    print("Which currency chart you want to follow. Please copy and paste the url of the chart from tradingview.")
+    chart_link=input()
+    return chart_link
 
 
 def main(link):
